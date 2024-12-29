@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sistem Informasi Koperasi Simpan Pinjam</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="icon/favicon.ico" type="image/x-icon">
+<link rel="icon" href="icon/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="topnav">
+        <a href="login.html">Login</a>
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="pinjaman.html">Pinjaman</a>
+    </div>
+    <div class="form-container">
+        <form action="login.html" method="post">
+            <div class="imgcontainer">
+                <img src="img/koperasi_indonesia_new-removebg-preview.png" alt="Avatar" class="avatar">
+            </div>
+        
+            <div class="container">
+                <label for="Email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="Email" required>
+            
+                <label for="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+            
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+            
+                <label for="repsw"><b>Re-Password</b></label>
+                <input type="password" placeholder="Enter Re-Password" name="repsw" required>
+            
+                <label for="birthdate"><b>Tanggal Lahir</b></label>
+                <input type="date" placeholder="birthdate" name="birthdate" required>
+            
+                <label><b>Jenis Kelamin</b></label>
+                <div>
+                    <label for="male">
+                        <input type="radio" id="male" name="Gender" value="male" required> Laki-laki
+                    </label>
+                    <label for="female">
+                        <input type="radio" id="female" name="Gender" value="female" required> Perempuan
+                    </label>
+                </div>
+            
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Koperasi Simpan Pinjam. All rights reserved.Muhammad Akbar Ramadan</p>
+ </body>
+</html>

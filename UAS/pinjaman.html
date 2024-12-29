@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="icon/favicon.ico" type="image/x-icon">
+<title>Pinjaman Online</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #199319;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            margin-bottom: 2rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #199319;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #199319;
+        }
+        .loan-info {
+            margin-top: 2rem;
+        }
+        .loan-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .footer {
+            position: static;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a href="login.html">Login</a>
+        <a href="index.html">Beranda</a>
+        <a href="profil.html">Profil</a>
+        <a href="pinjaman.html">Pinjaman</a>
+    </div>
+    <header>
+        <h1>Pinjaman Online</h1>
+    </header>
+    <div class="container">
+        <form id="loanForm">
+            <h2>Ajukan Pinjaman</h2>
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="amount">Jumlah Pinjaman:</label>
+            <input type="number" id="amount" name="amount" required>
+
+            <label for="duration">Durasi (bulan):</label>
+            <input type="number" id="duration" name="duration" required>
+
+            <label for="interest">Bunga (%):</label>
+            <input type="number" id="interest" name="interest" required>
+
+            <button type="button" onclick="applyLoan()">Ajukan Pinjaman</button>
+        </form>
+
+        <div class="loan-info" id="loanInfo">
+            <h2>Informasi Pinjaman</h2>
+            <!-- Loan details will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const loans = [];
+
+        function applyLoan() {
+            const name = document.getElementById('name').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            const interest = parseFloat(document.getElementById('interest').value) / 100;
+
+            const totalPayment = amount * (1 + interest * duration / 12);
+
+            const loan = {
+                name,
+                amount,
+                duration,
+                interest: interest * 100,
+                totalPayment,
+                transactions: []
+            };
+
+            loans.push(loan);
+            displayLoans();
+        }
+
+        function displayLoans() {
+            const loanInfo = document.getElementById('loanInfo');
+            loanInfo.innerHTML = '';
+
+            loans.forEach((loan, index) => {
+                const loanItem = document.createElement('div');
+                loanItem.className = 'loan-item';
+                loanItem.innerHTML = `
+                    <p><strong>Nama:</strong> ${loan.name}</p>
+                    <p><strong>Jumlah Pinjaman:</strong> Rp${loan.amount.toFixed(2)}</p>
+                    <p><strong>Durasi:</strong> ${loan.duration} bulan</p>
+                    <p><strong>Bunga:</strong> ${loan.interest}%</p>
+                    <p><strong>Total Pembayaran:</strong> Rp${loan.totalPayment.toFixed(2)}</p>
+                    <button onclick="makeTransaction(${index})">Bayar</button>
+                    <div id="transactions-${index}">
+                        <!-- Transactions will appear here -->
+                    </div>
+                `;
+                loanInfo.appendChild(loanItem);
+            });
+        }
+
+        function makeTransaction(index) {
+            const amount = prompt('Masukkan jumlah pembayaran:');
+            if (amount) {
+                loans[index].transactions.push(parseFloat(amount));
+                displayTransactions(index);
+            }
+        }
+
+        function displayTransactions(index) {
+            const transactionDiv = document.getElementById(`transactions-${index}`);
+            transactionDiv.innerHTML = '<h4>Transaksi:</h4>';
+            loans[index].transactions.forEach((transaction, tIndex) => {
+                const transactionItem = document.createElement('p');
+                transactionItem.textContent = `Transaksi ${tIndex + 1}: Rp${transaction.toFixed(2)}`;
+                transactionDiv.appendChild(transactionItem);
+            });
+        }
+    </script>
+<footer class="footer">
+    <p>© 2024 Koperasi Simpan Pinjam. All rights reserved.Muhammad Akbar Ramadan</p>
+</footer>
+</body>
+</html>
